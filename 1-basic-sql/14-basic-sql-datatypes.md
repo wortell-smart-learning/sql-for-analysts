@@ -1,35 +1,13 @@
-# Datatypes
+# Datatype exercises
 
-## Dat er datatypes zijn
+## About data types
 
-Dat '2' + '2' iets anders is dan 2 + 2
+Every column in every table inside a SQL Database has a so-called "datatype". This determines the type of data that fits in, and the detail with which data is stored. A full list of data types can be found in the Microsoft docs - but instead of giving you the link, [just google for "t-sql data types"](http://lmgtfy.com/?q=t-sql+data+types) to find the docs. It will come in handy as a reference in this module (plus, the habit of looking up documentation this way will serve you well as SQL Server user).
 
-```sql
-select 2 + 2;
-select '2' + '2';
-```
+As soon as you are on the Microsoft Docs about SQL Data Types, notice the link on the left that says **Precedence**. This is the one that tells you which data type will be automatically converted into another data type. Don't worry about storing this page: it will almost always be easier to test how it works in SQL than to read the docs about precedence. Just remember the phrase in case you need it :-).
 
-Dat dit bepaalt wat er opgeslagen kan worden
-Precisie van kommagetallen
-Voorbeeld met MONEY, FLOAT en DECIMAL
+## Explicit conversions
 
-Dat er echter ook ruimte gereserveerd wordt voor de data die je opslaat .. dus dat het voor een fact table van 30 miljard rijen uitmaakt of je data opslaat als DECIMAL(30,9), BIGINT, of INT.
 
-## Wat er gebeurt met verschillende datatypes
-
-Dat het soms goed gaat 
-
-Wat er dan achter de schermen gebeurt
-(impliciete conversies)
-
-Dat het soms (obviously) niet goed gaat
-
-Hoe je dit expliciet kunt maken
-
-## Wat je verder nog moet weten
-
-De karakter-types voor NVARCHAR vs. VARCHAR
-Wat het verschil is tussen NVARCHAR en NCHAR
-Wat een (MAX) betekent.
 
 ## Oefeningen vanuit de database.
