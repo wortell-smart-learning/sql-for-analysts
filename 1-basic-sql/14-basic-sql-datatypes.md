@@ -8,6 +8,5 @@ As soon as you are on the Microsoft Docs about SQL Data Types, notice the link o
 
 ## Explicit conversions
 
-
-
-## Oefeningen vanuit de database.
+1. Select the "Title" concatenated with the "Id" column in the table "Customer"
+2. Select the "Name" column from ProductCategory. Make sure only the first columns are displayed by casting to a smaller CHAR or VARCHAR-datatype.
