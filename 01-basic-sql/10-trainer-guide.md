@@ -36,6 +36,9 @@ Having everyone get a VM
 ### Block 2 - 10:45-12:00
 
 Getting a good feeling for current knowledge level + module 1
+Check:
+* knowledge of NULL
+* expressions in SELECT, WHERE, ...
 
 ### Block 3 - 12:45-14:45
 Inner & Left Join
@@ -43,4 +46,4 @@ Inner & Left Join
 ### Block 4 - 15:00-17:00
 SQL Datatypes
 
-The Challenge
++ Challenge
