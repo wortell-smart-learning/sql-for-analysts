@@ -10,12 +10,6 @@ We discussed the following things during the lecture & demos:
 * column-delimited expressions that result in multiple columns
 * `WHERE` for filtering rows
 
-## Select: writing your first queries
-
-* 
-
-## First steps
-
 Note that the following expressions are identical:
 
 ```sql
@@ -41,4 +35,3 @@ SELECT
   id
 FROM [dbo].customers -- The [dbo] part here is the "schema" in which a table resides. When no schema is written down in the query, the default schema is used. Often, this is the "dbo" schema.
 ```
-

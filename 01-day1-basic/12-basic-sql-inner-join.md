@@ -2,6 +2,33 @@
 
 There are several join types in SQL, and you can think of them in many ways. Whatever way you choose, remember that a `JOIN` is **not** a *lookup* operation!
 
+## Setup code
+
+```sql
+-- Setup code
+-- Creates tables we need just for this module / notebook
+IF OBJECT_ID('dbo.ProductCategory', 'U') IS NOT NULL
+  DROP TABLE ProductCategory;
+
+IF OBJECT_ID('dbo.Product', 'U') IS NOT NULL
+  DROP TABLE Product;
+
+SELECT *
+INTO ProductCategory
+FROM (
+    VALUES (1, 'Bikes'), (2, 'Cars')
+) AS ProductCategory (categoryId, categoryName)
+
+SELECT *
+INTO Product
+FROM (
+    VALUES (1, 1, 'Bicycle')
+    , (2, 1, 'Tricycle')
+    , (3, 2, 'Station wagon')
+) AS Product (productId, productCategoryId, productName);
+```
+
+
 ## Cartesian product
 
 The mother of all joins is the `CROSS JOIN`, or the *cartesian product*. This is a somewhat technical term, but it simply means "all possible combinations of rows"
@@ -25,6 +52,7 @@ Let's say we've got two tables: `Product` and `ProductCategory`. They look like 
 
 Now the *cartesian product* is just all possible combinations of rows:
 
+
 | categoryId | categoryName | productId | productCategoryId | productName   |
 |------------|--------------|-----------|-------------------|---------------|
 | 1          | Bikes        | 1         | 1                 | Bicycle       |
@@ -47,35 +75,13 @@ FROM ProductCategory
 CROSS JOIN Product
 ```
 
-I'm purposefully starting with the example of a cartesian product, because it's something you'll encounter way more often than you'd expect. Not only because you will use the `CROSS JOIN` clause eventually, but because this cartesian products often happen when you make an error in other `JOIN` clauses.
 
-## INNER JOIN
-
-The `INNER JOIN` is essentially a filter on the CROSS JOIN. Let's say we've got the following result:
-
-```sql
-SELECT
-   ProductCategory.categoryId
-   , ProductCategory.categoryName
-   , Product.productId
-   , Product.productCategoryId
-   , Product.productName
-FROM ProductCategory
-CROSS JOIN Product
-```
-
-| categoryId | categoryName | productId | productCategoryId | productName   |
-|------------|--------------|-----------|-------------------|---------------|
-| 1          | Bikes        | 1         | 1                 | Bicycle       |
-| 2          | Cars         | 1         | 1                 | Bicycle       |
-| 1          | Bikes        | 2         | 1                 | Tricycle      |
-| 2          | Cars         | 2         | 1                 | Tricycle      |
-| 1          | Bikes        | 3         | 2                 | Station wagon |
-| 2          | Cars         | 3         | 2                 | Station wagon |
+<table><tr><th>categoryId</th><th>categoryName</th><th>productId</th><th>productCategoryId</th><th>productName</th></tr><tr><td>1</td><td>Bikes</td><td>1</td><td>1</td><td>Bicycle</td></tr><tr><td>1</td><td>Bikes</td><td>2</td><td>1</td><td>Tricycle</td></tr><tr><td>1</td><td>Bikes</td><td>3</td><td>2</td><td>Station wagon</td></tr><tr><td>2</td><td>Cars</td><td>1</td><td>1</td><td>Bicycle</td></tr><tr><td>2</td><td>Cars</td><td>2</td><td>1</td><td>Tricycle</td></tr><tr><td>2</td><td>Cars</td><td>3</td><td>2</td><td>Station wagon</td></tr></table>
 
 ... but now we'd like only to display the products alongside the categories they really *belong* to (so essentially rows 2, 4 and 5 are eliminated).
 
 The most basic way of extending the query we wrote earlier would be as follows:
+
 
 ```sql
 SELECT
@@ -87,11 +93,16 @@ SELECT
 FROM ProductCategory
 CROSS JOIN Product
 WHERE ProductCategory.categoryId = Product.productCategoryId
+
 ```
+
+
+<table><tr><th>categoryId</th><th>categoryName</th><th>productId</th><th>productCategoryId</th><th>productName</th></tr><tr><td>1</td><td>Bikes</td><td>1</td><td>1</td><td>Bicycle</td></tr><tr><td>1</td><td>Bikes</td><td>2</td><td>1</td><td>Tricycle</td></tr><tr><td>2</td><td>Cars</td><td>3</td><td>2</td><td>Station wagon</td></tr></table>
 
 However, this way of writing is somewhat confusing: when reading from top to bottom, we essentially say first "we want to make a cartesian product", and then: "now filter it back".
 
 The better way to write this is using an `INNER JOIN` with an accompanying `ON` clause.
+
 
 ```sql
 SELECT
@@ -103,6 +114,9 @@ SELECT
 FROM ProductCategory
 INNER JOIN Product ON ProductCategory.categoryId = Product.productCategoryId
 ```
+
+
+<table><tr><th>categoryId</th><th>categoryName</th><th>productId</th><th>productCategoryId</th><th>productName</th></tr><tr><td>1</td><td>Bikes</td><td>1</td><td>1</td><td>Bicycle</td></tr><tr><td>1</td><td>Bikes</td><td>2</td><td>1</td><td>Tricycle</td></tr><tr><td>2</td><td>Cars</td><td>3</td><td>2</td><td>Station wagon</td></tr></table>
 
 ## Using joins
 
@@ -139,3 +153,15 @@ Let's say we're interested in the color of product we've sold in a particular mo
    * The function `YEAR()` does the same for a year.
 4. Extend the `WHERE` clause so that only results from June 2008 are displayed.
 5. Extend the query so that the 10 orders with the highest Freight costs are displayed. You need to use `TOP(n)` in conjunction with the `ORDER BY` clause.
+
+
+```sql
+-- Cleanup code
+-- Removes tables we only needed for this section / notebook
+
+IF OBJECT_ID('dbo.ProductCategory', 'U') IS NOT NULL
+  DROP TABLE ProductCategory;
+
+IF OBJECT_ID('dbo.Product', 'U') IS NOT NULL
+  DROP TABLE Product;
+```
