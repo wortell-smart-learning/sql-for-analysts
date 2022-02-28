@@ -106,24 +106,22 @@ INNER JOIN Product ON ProductCategory.categoryId = Product.productCategoryId
 
 ## Using joins
 
-1. Open SQL Server Management Studio
-2. Connect with the server `bitrainer.database.windows.net` using your student credentials
-3. Click "New Query"
-4. Make sure you're connected to the `AdventureWorksLT` database with the same number as your student login (so if you're `student-1`, pick `AdventureWorksLT-1`)
-5. Select the following columns from `SalesLT.Product`:
+1. Create a new query
+2. Make sure you're connected to the `AdventureWorksLT` database with the same number as your student login (so if you're `student-1`, pick `AdventureWorksLT-1`)
+3. Select the following columns from `SalesLT.Product`:
    * Name
    * Color
    * ListPrice
-6. Notice the number of rows
-7. Add the column `Name` from the table `SalesLT.ProductCategory` to the result set. 
+4. Notice the number of rows
+5. Add the column `Name` from the table `SalesLT.ProductCategory` to the result set. 
    * The column `Product.ProductCategoryID` should match with `ProductCategory.ProductCategoryID`
    * The number of rows should stay the same
-8. Notice the number of rows in `SalesLT.ProductCategory`
-9. Introduce an error, but **do not execute the query yet**
+6. Notice the number of rows in `SalesLT.ProductCategory`
+7. Introduce an error, but **do not execute the query yet**
    * Replace your `ON` clause with the clause `ON Product.ProductCategoryID = Product.ProductCategoryID`
    * How many rows do you expect?
-10. Execute the query, and check your assumptions
-11. Correct the query, so the result is identical to the result of step 7.
+8. Execute the query, and check your assumptions
+9. Correct the query, so the result is identical to the result of step 7.
 
 Let's say we're interested in the color of product we've sold in a particular month.
 
